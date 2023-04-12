@@ -8,14 +8,18 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
-
+isar_version: &isar_version ^3.0.5
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  isar: *isar_version
+  isar_flutter_libs: *isar_version
 
 dev_dependencies:
+  isar_generator: *isar_version
+  build_runner: any
   flutter_test:
     sdk: flutter
 
