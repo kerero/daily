@@ -1,7 +1,9 @@
-##########
 # Drawio
 \.\$*.bkp
 \.\$*.dtmp
+
+# Flutter generated sources
+*.g.dart
 
 # Miscellaneous
 *.class
