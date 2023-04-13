@@ -1,6 +1,9 @@
+import 'package:daily/src/settings/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
@@ -8,13 +11,27 @@ import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
-  const MyApp({
+class DailyApp extends ConsumerWidget {
+  DailyApp({
     super.key,
-    required this.settingsController,
   });
 
-  final SettingsController settingsController;
+  final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const SampleItemListView(),
+      ),
+      GoRoute(
+        path: '/settings',
+        builder: (context, state) => SettingsView(),
+      ),
+      GoRoute(
+        path: '/sample_item',
+        builder: (context, state) => const SampleItemDetailsView(),
+      ),
+    ],
+  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
