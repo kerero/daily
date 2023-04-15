@@ -4,7 +4,7 @@ import 'package:isar/isar.dart';
 part 'settings.g.dart';
 
 @collection
-class Settings {
+class AppSettings {
   static const Id idConstant = 1;
   final Id id = idConstant;
 
