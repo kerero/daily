@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'src/app.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
+import 'src/providers/isar_pod.dart';
+import 'src/providers/settings_pod.dart';
 
 void main() async {
   // Set up the SettingsController, which will glue user settings to multiple
@@ -15,5 +15,10 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(ProviderScope(child: DailyApp()));
+  final container = ProviderContainer();
+  await container.read(isarFuturePod.future);
+  await container.read(settingsFuturePod.future);
+
+  runApp(
+      UncontrolledProviderScope(container: container, child: const DailyApp()));
 }
