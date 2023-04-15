@@ -9,29 +9,13 @@ import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
+import 'routes.dart';
 
 /// The Widget that configures your application.
 class DailyApp extends ConsumerWidget {
   DailyApp({
     super.key,
   });
-
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const SampleItemListView(),
-      ),
-      GoRoute(
-        path: '/settings',
-        builder: (context, state) => SettingsView(),
-      ),
-      GoRoute(
-        path: '/sample_item',
-        builder: (context, state) => const SampleItemDetailsView(),
-      ),
-    ],
-  );
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
