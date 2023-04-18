@@ -15,6 +15,9 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
+  runApp(const MaterialApp(
+      home: Scaffold(
+          body: Center(child: Text('Loading'))))); //TODO: splash screen
   final container = ProviderContainer();
   await container.read(isarFuturePod.future);
   await container.read(settingsFuturePod.future);
