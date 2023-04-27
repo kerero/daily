@@ -1,14 +1,13 @@
 import 'package:daily/src/sample_feature/sample_item_details_view.dart';
-import 'package:daily/src/sample_feature/sample_item_list_view.dart';
 import 'package:daily/src/settings/settings_view.dart';
-import 'package:daily/src/views/app_shell.dart';
+import './views/app_shell_desktop.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(routes: <RouteBase>[
   ShellRoute(
     builder: (BuildContext context, GoRouterState state, Widget child) {
-      return AppShell(
+      return AppShellDesktop(
         child: child,
       );
     },
@@ -17,7 +16,7 @@ final router = GoRouter(routes: <RouteBase>[
         path: '/',
         builder: (context, state) => Center(
           child: Column(
-            children: [
+            children: const [
               Text('Some Text'),
               Text('Some Text2'),
             ],

@@ -1,10 +1,10 @@
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 
-class AppShell extends StatelessWidget {
+class AppShellDesktop extends StatelessWidget {
   final Widget child;
 
-  AppShell({
+  const AppShellDesktop({
     Key? key,
     required this.child,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class AppShell extends StatelessWidget {
       ),
       CollapsibleItem(
         text: 'Ice-Cream',
-        icon: Icons.icecream,
+        icon: Icons.ac_unit,
         onPressed: () => {},
       ),
       CollapsibleItem(
@@ -29,23 +29,23 @@ class AppShell extends StatelessWidget {
         onPressed: () => {},
       ),
     ];
-    return Row(
-      children: [
-        CollapsibleSidebar(
-          isCollapsed: MediaQuery.of(context).size.width <= 800,
-          items: items,
-          title: 'John Smith',
-          screenPadding: 20,
-          body: Container(),
-        ),
-        Expanded(
-          child: SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: child,
+    return Scaffold(
+      body: Row(
+        children: [
+          CollapsibleSidebar(
+            showTitle: false,
+            backgroundColor: Colors.grey.shade700,
+            sidebarBoxShadow: const [],
+            isCollapsed: MediaQuery.of(context).size.width <= 800,
+            items: items,
+            screenPadding: 10,
+            body: Container(),
           ),
-        )
-      ],
+          Expanded(
+            child: child,
+          )
+        ],
+      ),
     );
   }
 }
