@@ -1,63 +1,51 @@
+import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class AppShell extends StatelessWidget {
   final Widget child;
 
-  const AppShell({
+  AppShell({
     Key? key,
     required this.child,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: child,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.my_library_music_rounded),
-            label: 'Library',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.timelapse),
-            label: 'Recently Played',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-        ],
-        currentIndex: _calculateSelectedIndex(context),
-        onTap: (int idx) => _onItemTapped(idx, context),
+    final items = [
+      CollapsibleItem(
+        text: 'Dashboard',
+        icon: Icons.assessment,
+        onPressed: () => {},
+        isSelected: true,
       ),
+      CollapsibleItem(
+        text: 'Ice-Cream',
+        icon: Icons.icecream,
+        onPressed: () => {},
+      ),
+      CollapsibleItem(
+        text: 'Search',
+        icon: Icons.search,
+        onPressed: () => {},
+      ),
+    ];
+    return Row(
+      children: [
+        CollapsibleSidebar(
+          isCollapsed: MediaQuery.of(context).size.width <= 800,
+          items: items,
+          title: 'John Smith',
+          screenPadding: 20,
+          body: Container(),
+        ),
+        Expanded(
+          child: SizedBox(
+            height: double.infinity,
+            width: double.infinity,
+            child: child,
+          ),
+        )
+      ],
     );
-  }
-
-  static int _calculateSelectedIndex(BuildContext context) {
-    final GoRouter route = GoRouter.of(context);
-    final String location = route.location;
-    if (location.startsWith('/recents')) {
-      return 1;
-    } else if (location.startsWith('/search')) {
-      return 2;
-    } else {
-      return 0;
-    }
-  }
-
-  void _onItemTapped(int index, BuildContext context) {
-    switch (index) {
-      case 1:
-        GoRouter.of(context).go('/recents');
-        break;
-      case 2:
-        GoRouter.of(context).go('/search');
-        break;
-      case 0:
-      default:
-        GoRouter.of(context).go('/library');
-        break;
-    }
   }
 }

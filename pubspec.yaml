@@ -9,6 +9,7 @@ version: 1.0.0+1
 environment:
   sdk: '>=2.19.2 <3.0.0'
 dependencies:
+  collapsible_sidebar: ^2.0.4
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -18,7 +19,6 @@ dependencies:
   isar: ^3.0.5
   isar_flutter_libs: ^3.0.5
   riverpod: ^2.3.4
-
 
 dev_dependencies:
   flutter_test:

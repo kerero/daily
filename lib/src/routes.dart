@@ -15,7 +15,14 @@ final router = GoRouter(routes: <RouteBase>[
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const SampleItemListView(),
+        builder: (context, state) => Center(
+          child: Column(
+            children: [
+              Text('Some Text'),
+              Text('Some Text2'),
+            ],
+          ),
+        ), //const SampleItemListView(),
       ),
       GoRoute(
         path: '/settings',
