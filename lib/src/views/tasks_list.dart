@@ -8,12 +8,17 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Item Details'),
+    final itemTemplate = Card(
+      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Title(color: Colors.black, child: const Text("Title")),
       ),
-      body: const Center(
-        child: Text('More Information Here'),
+    );
+
+    return Expanded(
+      child: ListView(
+        children: [itemTemplate, itemTemplate, itemTemplate],
       ),
     );
   }

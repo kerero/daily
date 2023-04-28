@@ -34,12 +34,12 @@ class AppShellDesktop extends StatelessWidget {
         children: [
           CollapsibleSidebar(
             showTitle: false,
-            backgroundColor: Colors.grey.shade700,
+            backgroundColor: Theme.of(context).cardColor,
             sidebarBoxShadow: const [],
             isCollapsed: MediaQuery.of(context).size.width <= 800,
             items: items,
             screenPadding: 10,
-            body: Container(),
+            body: const SizedBox.shrink(),
           ),
           Expanded(
             child: child,
