@@ -1,6 +1,8 @@
 import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class AppShellDesktop extends StatelessWidget {
   final Widget child;
 
@@ -35,8 +37,10 @@ class AppShellDesktop extends StatelessWidget {
           CollapsibleSidebar(
             showTitle: false,
             backgroundColor: Theme.of(context).cardColor,
+            selectedIconColor: Theme.of(context).primaryColor,
             sidebarBoxShadow: const [],
-            isCollapsed: MediaQuery.of(context).size.width <= 800,
+            isCollapsed:
+                MediaQuery.of(context).size.width <= Constants.smallWindowWidth,
             items: items,
             screenPadding: 10,
             body: const SizedBox.shrink(),
