@@ -1,3 +1,7 @@
+#isar
+*.isar
+*.isar-lck
+
 # Drawio
 \.\$*.bkp
 \.\$*.dtmp
