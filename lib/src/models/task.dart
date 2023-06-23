@@ -4,7 +4,7 @@ part 'task.g.dart';
 
 @collection
 class Task {
-  final Id id = Isar.autoIncrement;
+  Id? id;
   String title = '';
   String description = '';
 }

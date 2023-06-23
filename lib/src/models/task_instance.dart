@@ -5,7 +5,7 @@ part 'task_instance.g.dart';
 
 @collection
 class TaskInstance {
-  final Id id = Isar.autoIncrement;
+  Id? id;
   final task = IsarLink<Task>();
   bool completed = false;
 }
