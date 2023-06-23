@@ -1,6 +1,4 @@
-import 'package:daily/src/models/task.dart';
 import 'package:daily/src/providers/isar_pod.dart';
-import 'package:daily/src/providers/tasks_pod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,9 +28,9 @@ class TasksList extends ConsumerWidget {
       ),
       Positioned(
         bottom: MediaQuery.of(context).viewInsets.bottom + 25,
-        right: 25,
-        left: 10,
-        child: const AddTask(),
+        right: MediaQuery.of(context).size.width * 0.2,
+        left: MediaQuery.of(context).size.width * 0.2,
+        child: AddTask(),
       )
     ]);
   }
