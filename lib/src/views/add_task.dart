@@ -15,6 +15,10 @@ class AddTask extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final isar = ref.read(isarPod);
     final textController = useTextEditingController();
+    onSubmit() {
+      addTask(textController.value.text, isar);
+      textController.clear();
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -26,16 +30,16 @@ class AddTask extends HookConsumerWidget {
         children: [
           Expanded(
             child: TextField(
+              onSubmitted: (_) => onSubmit(),
               controller: textController,
-              decoration: const InputDecoration(
-                  hintText: 'Create new task', border: InputBorder.none),
+              decoration: InputDecoration(
+                  hintText: 'Create a new task',
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: Colors.grey.shade400)),
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              addTask(textController.value.text, isar);
-              textController.clear();
-            },
+            onPressed: onSubmit,
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(btnSize, btnSize),
               elevation: 0,
