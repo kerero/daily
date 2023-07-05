@@ -1,6 +1,5 @@
 import 'package:daily/src/models/task_instance.dart';
 import 'package:daily/src/providers/isar_pod.dart';
-import 'package:daily/src/providers/tasks_pod.dart';
 import 'package:daily/src/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,14 +16,18 @@ class TasksList extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final isar = ref.read(isarPod);
-    final tasksStream =
-        isar.taskInstances.where().build().watch(fireImmediately: true);
+    final tasksStream = isar.taskInstances
+        .where()
+        .sortByCompleted()
+        .build()
+        .watch(fireImmediately: true);
+
     return Stack(children: [
       StreamBuilderTimeout(
         stream: tasksStream,
         timeout: const Duration(seconds: 5),
         onData: (data) => ListView(
-          children: data.map((e) => tasksItemBuilder(e)).toList(),
+          children: data.map((e) => TaskItem(taskInstance: e)).toList(),
         ),
       ),
       Positioned(
@@ -35,16 +38,35 @@ class TasksList extends ConsumerWidget {
       )
     ]);
   }
+}
 
-  Widget tasksItemBuilder(TaskInstance taskInstance) {
-    final title = taskInstance.task.value!.title;
-    final itemTemplate = Card(
+class TaskItem extends ConsumerWidget {
+  final TaskInstance taskInstance;
+
+  const TaskItem({super.key, required this.taskInstance});
+  @override
+  Widget build(context, ref) {
+    final isar = ref.read(isarPod);
+    return Card(
       margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Title(color: Colors.black, child: Text(title)),
+        child: Row(
+          children: [
+            Checkbox(
+                shape: const CircleBorder(),
+                value: taskInstance.completed,
+                onChanged: (b) {
+                  taskInstance.completed = b ?? taskInstance.completed;
+                  isar.writeTxn(() => isar.taskInstances.put(taskInstance));
+                }),
+            Text(
+              taskInstance.task.value!.title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ],
+        ),
       ),
     );
-    return itemTemplate;
   }
 }
