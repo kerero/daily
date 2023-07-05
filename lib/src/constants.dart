@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 
 abstract class Constants {
   static const smallWindowWidth = 800;

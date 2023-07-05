@@ -1,4 +1,3 @@
-import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 
 class AppShellMobile extends StatelessWidget {
