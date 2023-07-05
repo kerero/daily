@@ -1,6 +1,7 @@
 import 'package:daily/src/models/task_instance.dart';
 import 'package:daily/src/providers/isar_pod.dart';
 import 'package:daily/src/utils.dart';
+import 'package:daily/src/views/task_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
@@ -27,7 +28,7 @@ class TasksList extends ConsumerWidget {
         stream: tasksStream,
         timeout: const Duration(seconds: 5),
         onData: (data) => ListView(
-          children: data.map((e) => TaskItem(taskInstance: e)).toList(),
+          children: data.map((t) => TaskPreview(taskInstance: t)).toList(),
         ),
       ),
       Positioned(
@@ -37,36 +38,5 @@ class TasksList extends ConsumerWidget {
         child: const AddTask(),
       )
     ]);
-  }
-}
-
-class TaskItem extends ConsumerWidget {
-  final TaskInstance taskInstance;
-
-  const TaskItem({super.key, required this.taskInstance});
-  @override
-  Widget build(context, ref) {
-    final isar = ref.read(isarPod);
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          children: [
-            Checkbox(
-                shape: const CircleBorder(),
-                value: taskInstance.completed,
-                onChanged: (b) {
-                  taskInstance.completed = b ?? taskInstance.completed;
-                  isar.writeTxn(() => isar.taskInstances.put(taskInstance));
-                }),
-            Text(
-              taskInstance.task.value!.title,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }
