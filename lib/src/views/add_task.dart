@@ -39,6 +39,7 @@ class AddTask extends HookConsumerWidget {
             ),
           ),
           ElevatedButton(
+            // TODO: Disable bottun if text field is empty
             onPressed: onSubmit,
             style: ElevatedButton.styleFrom(
               minimumSize: const Size(btnSize, btnSize),
@@ -56,6 +57,7 @@ class AddTask extends HookConsumerWidget {
   }
 
   void addTask(String title, Isar isar) async {
+    if (title.isEmpty) return;
     await isar.writeTxn(() async {
       final newTask = Task()..title = title;
       await isar.tasks.put(newTask);
