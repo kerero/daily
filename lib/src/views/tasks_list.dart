@@ -1,5 +1,9 @@
+import 'package:animated_list_plus/animated_list_plus.dart';
+import 'package:animated_list_plus/transitions.dart';
+import 'package:daily/src/models/task.dart';
 import 'package:daily/src/models/task_instance.dart';
 import 'package:daily/src/providers/isar_pod.dart';
+import 'package:daily/src/providers/tasks_pod.dart';
 import 'package:daily/src/utils.dart';
 import 'package:daily/src/views/task_preview.dart';
 import 'package:flutter/material.dart';
@@ -17,19 +21,21 @@ class TasksList extends ConsumerWidget {
   @override
   Widget build(context, ref) {
     final isar = ref.read(isarPod);
-    final tasksStream = isar.taskInstances
-        .where()
-        .sortByCompleted()
-        .build()
-        .watch(fireImmediately: true);
 
+    ref.watch(tasksChangeEventPod);
+    final data = isar.taskInstances.where().sortByCompleted().findAllSync();
     return Stack(children: [
-      StreamBuilderTimeout(
-        stream: tasksStream,
-        timeout: const Duration(seconds: 5),
-        onData: (data) => ListView(
-          children: data.map((t) => TaskPreview(taskInstance: t)).toList(),
-        ),
+      ImplicitlyAnimatedList(
+        items: data,
+        areItemsTheSame: (oldItem, newItem) => oldItem.id == newItem.id,
+        itemBuilder: (context, animation, item, i) {
+          return SizeFadeTransition(
+            sizeFraction: 0.7,
+            curve: Curves.easeInOut,
+            animation: animation,
+            child: TaskPreview(taskInstance: item),
+          );
+        },
       ),
       Positioned(
         bottom: MediaQuery.of(context).viewInsets.bottom + 25,
