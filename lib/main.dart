@@ -1,3 +1,4 @@
+import 'package:daily/src/models/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,7 +22,16 @@ void main() async {
   final container = ProviderContainer();
   await container.read(isarFuturePod.future);
   await container.read(settingsFuturePod.future);
+  await initSettings(container);
 
   runApp(
       UncontrolledProviderScope(container: container, child: const DailyApp()));
+}
+
+Future initSettings(ProviderContainer ref) async {
+  final isar = ref.read(isarPod);
+  final settings = await isar.settings.get(Settings.idConstant);
+  if (settings == null) {
+    await isar.writeTxn(() => isar.settings.put(Settings()));
+  }
 }
