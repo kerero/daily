@@ -30,6 +30,7 @@ class TasksList extends ConsumerWidget {
         areItemsTheSame: (oldItem, newItem) => oldItem.id == newItem.id,
         itemBuilder: (context, animation, item, i) {
           return SizeFadeTransition(
+            key: ValueKey(item.id),
             sizeFraction: 0.7,
             curve: Curves.easeInOut,
             animation: animation,
